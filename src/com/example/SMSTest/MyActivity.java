@@ -40,8 +40,10 @@ public class MyActivity extends Activity {
 
         sender = (TextView) findViewById(R.id.sender);
         content = (TextView) findViewById(R.id.content);
+        //动态组测广播
         receiveFileter = new IntentFilter();
         receiveFileter.addAction("android.provider.Telephony.SMS_RECEIVED");
+        //设置MessageReceiver的优先级（短信拦截）
         receiveFileter.setPriority(100);
         messageReciver = new MessageReceiver();
         registerReceiver(messageReciver, receiveFileter);
@@ -59,18 +61,22 @@ public class MyActivity extends Activity {
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 SmsManager smsManager = SmsManager.getDefault();
 
                 Intent sentIntent = new Intent("SENT_SMS_ACTION");
                 PendingIntent pi = PendingIntent.getBroadcast(MyActivity.this, 0, sentIntent, 0);
+                //sendTextMessage方法发送短信
+                //五个参数，第一个接收人的手机号，第三个参数指定短信内容，第四个参数监控短信发送状态
                 smsManager.sendTextMessage(to.getText().toString(), null, msgInput.getText().toString(), pi, null);
 
-                smsManager.sendTextMessage(to.getText().toString(), null,
-                        msgInput.getText().toString(), null, null);
+//                smsManager.sendTextMessage(to.getText().toString(), null,
+//                        msgInput.getText().toString(), null, null);
             }
         });
     }
 
+    //取消注册
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -79,6 +85,7 @@ public class MyActivity extends Activity {
         //   Log.d(MyActivity.ACTIVITY_TAG, "this is log2");
     }
 
+    //广播接收器
     class SendStatusReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -92,6 +99,7 @@ public class MyActivity extends Activity {
         }
     }
 
+    //广播接收器接收系统发送出的短信广播
     class MessageReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -115,6 +123,7 @@ public class MyActivity extends Activity {
             }
             sender.setText(address);
             content.setText(fullMessage);
+            //种植广播的传递（短信拦截）
             abortBroadcast();
         }
     }
