@@ -20,7 +20,7 @@ public class MyActivity extends Activity {
     /**
      * Called when the activity is first created.
      */
- //   private static final String ACTIVITY_TAG="LogDemo";
+    //   private static final String ACTIVITY_TAG="LogDemo";
     private TextView sender;
     private TextView content;
     private IntentFilter receiveFileter;
@@ -45,7 +45,7 @@ public class MyActivity extends Activity {
         receiveFileter.setPriority(100);
         messageReciver = new MessageReceiver();
         registerReceiver(messageReciver, receiveFileter);
-      //  Log.d(MyActivity.ACTIVITY_TAG, "this is log1");
+        //  Log.d(MyActivity.ACTIVITY_TAG, "this is log1");
 
         to = (EditText) findViewById(R.id.to);
         msgInput = (EditText) findViewById(R.id.msg_input);
@@ -76,16 +76,16 @@ public class MyActivity extends Activity {
         super.onDestroy();
         unregisterReceiver(messageReciver);
         unregisterReceiver(sendStatusReceiver);
-     //   Log.d(MyActivity.ACTIVITY_TAG, "this is log2");
+        //   Log.d(MyActivity.ACTIVITY_TAG, "this is log2");
     }
     class SendStatusReceiver extends BroadcastReceiver{
         @Override
         public void onReceive(Context context, Intent intent) {
             if(getResultCode() == RESULT_OK ){
-                //¶ÌĞÅ·¢ËÍ³É¹¦
+                //çŸ­ä¿¡å‘é€æˆåŠŸ
                 Toast.makeText(context,"Send succeeded",Toast.LENGTH_SHORT).show();
             }else {
-                //¶ÌĞÅ·¢ËÍÊ§°Ü
+                //çŸ­ä¿¡å‘é€å¤±è´¥
                 Toast.makeText(context,"Send failed",Toast.LENGTH_LONG).show();
             }
         }
@@ -94,22 +94,22 @@ public class MyActivity extends Activity {
     class MessageReceiver extends BroadcastReceiver{
         @Override
         public void onReceive(Context context, Intent intent) {
-         //   Log.d(MyActivity.ACTIVITY_TAG,"this is log3");
+            //   Log.d(MyActivity.ACTIVITY_TAG,"this is log3");
             Bundle bundle = intent.getExtras();
-            //ÌáÈ¡¶ÌĞÅÏûÏ¢
-            // pduÃÜÔ¿À´ÌáÈ¡ Ò»¸ö SMS pdus Êı×é
+            //æå–çŸ­ä¿¡æ¶ˆæ¯
+            // pduå¯†é’¥æ¥æå– ä¸€ä¸ª SMS pdus æ•°ç»„
             Object[] pdus = (Object[]) bundle.get("pdus");
             SmsMessage[] messages = new SmsMessage[pdus.length];
             for(int i = 0 ; i<messages.length;i++){
-                //createFromPdu·½·¨½«Ã¿Ò»¸öpdu×Ö½ÚÊı×é×ª»»ÎªSmsMessage¶ÔÏó
+                //createFromPduæ–¹æ³•å°†æ¯ä¸€ä¸ªpduå­—èŠ‚æ•°ç»„è½¬æ¢ä¸ºSmsMessageå¯¹è±¡
                 messages[i] = SmsMessage.createFromPdu((byte[])pdus[i]);
             }
-            //µ÷ÓÃgetOriginatingAddress·½·¨»ñÈ¡·¢ËÍ·½ºÅÂë
+            //è°ƒç”¨getOriginatingAddressæ–¹æ³•è·å–å‘é€æ–¹å·ç 
             String address = messages[0].getOriginatingAddress();
             String fullMessage = "";
 
             for (SmsMessage message : messages){
-                //µ÷ÓÃgetMessageBody·½·¨»ñÈ¡¶ÌĞÅÄÚÈİ
+                //è°ƒç”¨getMessageBodyæ–¹æ³•è·å–çŸ­ä¿¡å†…å®¹
                 fullMessage += message.getMessageBody();
             }
             sender.setText(address);
