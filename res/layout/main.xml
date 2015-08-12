@@ -31,11 +31,6 @@
                   android:layout_gravity="center_vertical"
                 />
     </LinearLayout>
-    <Button android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/button"
-            android:text="Button"
-            />
     <LinearLayout android:layout_width="match_parent"
                   android:layout_height="50dp">
         <TextView android:layout_width="wrap_content"
@@ -50,18 +45,18 @@
                   android:layout_gravity="center_vertical"
                   android:layout_weight="1"/>
     </LinearLayout>
-    <LinerarLayout android:layout_width="match_parent"
-                   android:layout_height="50dp">
-        <EditText android:id="@+id/msg_input"
-                  android:layout_width="0dp"
+  <LinearLayout android:layout_width="match_parent"
+                android:layout_height="50dp">
+          <EditText android:id="@+id/msg_input"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"/>
+          <Button android:id="@+id/send"
+                  android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
                   android:layout_gravity="center_vertical"
-                  android:layout_weight="1"/>
-        <Button android:id="@+id/send"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:text="Send"/>
-    </LinerarLayout>
+                  android:text="Send"/>
+  </LinearLayout>
 </LinearLayout>
 
